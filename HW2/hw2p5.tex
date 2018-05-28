@@ -1,0 +1,97 @@
+Let $q_1$ and $q_2$ be the Boolean conjunctive queries:
+\begin{equation*}
+  q_1 :- E(x_1,x_2),E(x_2,x_1),E(x_2,x_3),E(x_3,x_2),E(x_3,x_4),E(x_4,x_3),E(x_4,x_1),E(x_1,x_4).
+\end{equation*}
+and 
+\begin{align*}
+  q_2 :- E(x_1,x_2),E(x_2,x_1),E(x_2,x_3),E(x_3,x_2),E(x_3,x_4), \\ 
+  E(x_4,x_3),E(x_4,x_1),E(x_1,x_4),E(x_1,x_3),E(x_3,x_1).
+\end{align*} 
+\textbf{Proof:} The canonical instances of $q_1$ and $q_2$ are given as 
+\begin{align*}
+  I^{q_1} = &E(x_1,x_2),E(x_2,x_1),E(x_2,x_3),E(x_3,x_2), \\
+            &E(x_3,x_4),E(x_4,x_3),E(x_4,x_1),E(x_1,x_4) \\
+  I^{q_2} = &E(x_1,x_2),E(x_2,x_1),E(x_2,x_3),E(x_3,x_2),E(x_3,x_4), \\ 
+            &E(x_4,x_3),E(x_4,x_1),E(x_1,x_4),E(x_1,x_3),E(x_3,x_1)
+\end{align*}
+\begin{enumerate}
+    \item $q_1 \not \subseteq q_2$  \\
+    If we use a function $h$ where
+    \begin{shiftedflalign*}
+      & h(x_1) = x_1 & \\
+      & h(x_2) = x_2 & \\
+      & h(x_3) = x_3 & \\
+      & h(x_4) = x_4 & 
+    \end{shiftedflalign*}
+    to map most tuples from $I^{q_2}$ to $I^{q_1}$, then we cannot map $(x_1,x_3)$ and $(x_3,x_1)$ 
+    from $I^{q_2}$ to $I^{q_1}$. Hence, there does not exist any homomorphism $h$: $I^{q_2} 
+    \rightarrow I^{q_1}$. Hence it follows that $q_1 \not \subseteq q_2$.
+
+    \item $q_2 \subseteq q_1$ \\
+    There is homomorphism $h$: $I^{q_1} \rightarrow I^{q_2}$ where
+    \begin{shiftedflalign*}
+      & h(x_1) = x_1 & \\
+      & h(x_2) = x_2 & \\
+      & h(x_3) = x_3 & \\
+      & h(x_4) = x_4 & 
+    \end{shiftedflalign*}
+    Hence, $q_2 \subseteq q_1$ by the Homomorphism Theorem.
+    
+    \item A conjunctive query $q_3$ such that $q_3$ is a minimal conjunctive query equivalent to $q_1$
+    \begin{equation*}
+      q_3 :- E(x_1,x_2),E(x_2,x_1).
+    \end{equation*} 
+    \begin{enumerate}
+      \item We need to show that $q_1 \equiv q_3$. The canonical instance of $q_3$ is $I^{q_3} = E(x_1,x_2),E(x_2,x_1)$. 
+      There is a homomorphism $h_1: I^{q_1} \rightarrow I^{q_3}$ where 
+      \begin{shiftedflalign*}
+        & h_1(x_1) = x_1 & \\
+        & h_1(x_2) = x_2 & \\
+        & h_1(x_3) = x_1 & \\
+        & h_1(x_4) = x_2 & 
+      \end{shiftedflalign*}
+      Hence, $q_3 \subseteq q_1$ by the Homomorphism Theorem (1). There is also a homomorphism $h_2$: $I^{q_3} 
+      \rightarrow I^{q_1}$ where 
+      \begin{shiftedflalign*}
+        & h_2(x_1) = x_1 & \\
+        & h_2(x_2) = x_2 &  
+      \end{shiftedflalign*}
+      Therefore, $q_1 \subseteq q_3$ by the Homomorphism Theorem (2). By (1) and (2), $q_1 \equiv q_3$.
+
+      \item To show that $q_3$ is minimal, we consider all other conjunctive queries that are equivalent to $q_1$ 
+      \begin{align*}
+        &q_3' :- E(x_1,x_2),E(x_2,x_1),E(x_2,x_3),E(x_3,x_2). \\ 
+        &q_3'' :- E(x_1,x_2),E(x_2,x_1),E(x_2,x_3),E(x_3,x_2),E(x_3,x_4),E(x_4,x_3).
+      \end{align*}
+      $q_3$ has the fewest conjuncts compared to all the conjunctive queries equivalent to $q_1$.
+    \end{enumerate}
+
+    \item A conjunctive query $q_4$ such that $q_4$ is a minimal conjunctive query equivalent to $q_2$
+    \begin{equation*}
+      q_4 :- E(x_1,x_2),E(x_2,x_1),E(x_2,x_3),E(x_3,x_2),E(x_1,x_3),E(x_3,x_1). 
+    \end{equation*}
+    \begin{enumerate}
+      \item We need to show that $q_2 \equiv q_4$. The canonical instance of $q_4$ is $I^{q_4} = E(x_1,x_2),E(x_2,x_1),\\
+      E(x_2,x_3),E(x_3,x_2),E(x_1,x_3),E(x_3,x_1)$. There is a homomorphism $h_1: I^{q_2} \rightarrow I^{q_4}$ where
+      \begin{shiftedflalign*}
+        & h_1(x_1) = x_1 & \\
+        & h_1(x_2) = x_2 & \\
+        & h_1(x_3) = x_3 & \\
+        & h_1(x_4) = x_2 & 
+      \end{shiftedflalign*} 
+      By the Homomorphism Theorem, $q_4 \subseteq q_2$. There is also a homomorphism $h_2$: $I^{q_4} \rightarrow 
+      I^{q_2}$ where
+      \begin{shiftedflalign*}
+        & h_2(x_1) = x_1 & \\
+        & h_2(x_2) = x_2 & \\
+        & h_2(x_3) = x_3 &
+      \end{shiftedflalign*} 
+      Hence, $q_2 \subseteq q_4$ by the Homomorphism Theorem.
+
+      \item To show that $q_4$ is minimal, we consider all other conjunctive queries that are equivalent to $q_2$ 
+      \begin{align*}
+        &q_4' :- E(x_1,x_2),E(x_2,x_1),E(x_2,x_3),E(x_3,x_2),E(x_3,x_4),E(x_4,x_3),E(x_1,x_3),E(x_3,x_1). 
+      \end{align*}
+      $q_4$ has the fewest conjuncts compared to all the conjunctive queries equivalent to $q_2$.
+    \end{enumerate}
+\end{enumerate}

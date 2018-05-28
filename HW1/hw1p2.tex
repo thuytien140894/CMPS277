@@ -1,0 +1,16 @@
+Given a DIRECT database with two attributes FROM and TO:
+
+\begin{enumerate}
+  \item Relational calculus
+  \begin{multline*}
+    \{(c,d) : DIRECT(c,d) \\ 
+    \lor (\exists x \: (DIRECT(c,x) \land DIRECT(x,d))) \\ 
+    \lor (\exists x,y \: (DIRECT(c,x) \land DIRECT(x,y) \land DIRECT(y,d)))\}
+  \end{multline*}
+
+  \item Relational algebra
+  \begin{multline*}
+    DIRECT \lor \pi_{1,4}(\sigma_{2=3}(DIRECT \times DIRECT)) \\ 
+    \lor \pi_{1,6}(\sigma_{2=3 \land 4=5}(DIRECT \times DIRECT \times DIRECT))
+  \end{multline*}
+\end{enumerate}

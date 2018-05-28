@@ -1,0 +1,19 @@
+\begin{enumerate}
+  \item All drinkers who frequent at least one bar that serves at least one beer they like.
+  \begin{equation*}
+    \{x : \exists y \: \texttt{FREQUENTS}(x,y) \land \exists z \: (\texttt{LIKES}(x,z) \land \texttt{SERVES}(y,z))\}
+  \end{equation*}
+  This is a conjunctive query because it is expressed in $\land$ and $\exists$ only.
+  
+  \item All drinkers who frequent only bars that serve at least one beer they like.
+  \begin{equation*}
+    \{x : \forall y \: \texttt{FREQUENTS}(x,y) \rightarrow \exists z \: (\texttt{SERVES}(y,z) \land \texttt{LIKES}(x,z))\}
+  \end{equation*}
+  This is not a conjunctive query because it includes the universal quantifier $\forall$ and implication $\rightarrow$.
+ 
+  \item All drinkers who frequent every bar that serves ANCHOR STEAM.
+  \begin{equation*}
+    \{x : \forall y \: (\texttt{SERVES}(y,\texttt{ANCHOR STEAM})) \land \texttt{FREQUENTS}(x,y))\}
+  \end{equation*}
+  This is not a conjunctive query because it includes the universal quantifier $\forall$.
+\end{enumerate}

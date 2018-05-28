@@ -1,0 +1,70 @@
+\begin{enumerate}
+    \item Let $\varphi$ be a 2-CNF formula that involves variables $x_1,...,x_n$. Using the 
+    relational database schema $S$ with three binary relational schemas, we can rewrite 
+    $\varphi$ as a database instance of $S$:
+    \begin{equation*}
+        S^{\varphi} = \{A_1, A_2, A_3\}
+    \end{equation*}
+    where 
+    \begin{align*}
+        & A_1 = \{(x,y) : (x \lor y) \in \varphi\} \\
+        & A_2 = \{(x,y) : (\neg x \lor y) \in \varphi\} \\
+        & A_3 = \{(x,y) : (\neg x \lor \neg y) \in \varphi \}
+    \end{align*}
+    Note that each relation $A_i$ represents a possible conjunct found in a 2-CNF formula. 
+    For each of these conjuncts, we create a relation that contains 
+    all satisfiable combinations of boolean values as tuples. The result is another database instance 
+    of $S$:
+    \begin{equation*}
+        S^* = \{B_1, B_2, B_3\}
+    \end{equation*}
+    where 
+    \begin{align*}
+        & B_1 = \{(\texttt{true}, \texttt{false}), (\texttt{true}, \texttt{true}), (\texttt{false}, \texttt{true})\} \\
+        & B_2 = \{(\texttt{false}, \texttt{true}), (\texttt{true}, \texttt{true}), (\texttt{false}, \texttt{false})\} \\
+        & B_3 = \{(\texttt{false}, \texttt{true}), (\texttt{true}, \texttt{false}), (\texttt{false}, \texttt{false})\} 
+    \end{align*}
+    It follows that $\varphi$ is satisfiable if there is a homomorphism $h: S^{\varphi} \rightarrow S^*$ 
+    such that for every $i \leq 3$:
+    \begin{equation*}
+        (x_1, x_2) \in A_i \Rightarrow (h(x_1), h(x_2)) \in B_i
+    \end{equation*}
+    Let's consider an example of $\varphi = (x \lor y) \land (x \lor \neg y)$. We have 
+    \begin{equation*}
+        S^{\varphi} = \{A_1, A_2, A_3\}
+    \end{equation*}
+    where 
+    \begin{align*}
+        & A_1 = \{(x,y)\} \\
+        & A_2 = \{(y,x)\} \\
+        & A_3 = \{\}
+    \end{align*}
+    There is a homomorphism $h: S^{\varphi} \rightarrow S^*$ where $h(x) = \texttt{true}$ and $h(y) = 
+    \texttt{false}$. Hence $\varphi$ is satisfiable.
+
+    \item Similarly, 3-SAT can be viewed as a special case of the HOMOMORPHISM PROBLEM in the same 
+    way that we have demonstrated for 2-SAT. One change would be that the relational database schema  
+    $S$ would have four trinary relational schemas. The database instance of $S$ to represent a 3-CNF 
+    formula $\varphi$ would be
+    \begin{equation*}
+        S^{\varphi} = \{A_1, A_2, A_3, A_4\}
+    \end{equation*}
+    where $A_i$ represents a possible conjunct found in a 3-CNF formula
+    \begin{align*}
+        & A_1 = \{(x,y,z) : (x \lor y \lor z) \in \varphi\} \\
+        & A_2 = \{(x,y,z) : (\neg x \lor y \lor z) \in \varphi\} \\
+        & A_3 = \{(x,y,z) : (\neg x \lor \neg y \lor z) \in \varphi \} \\
+        & A_4 = \{(x,y,z) : (\neg x \lor \neg y \lor \neg z) \in \varphi \}
+    \end{align*} 
+    The database instance of $S$ to represent the constraints for each conjunct is defined as following:
+    \begin{equation*}
+        S^* = \{B_1, B_2, B_3, B_4\}
+    \end{equation*}
+    where 
+    \begin{align*}
+        & B_1 = \{\texttt{true}, \texttt{false}\}^3 - {(\texttt{false}, \texttt{false}, \texttt{false})} \\
+        & B_2 = \{\texttt{true}, \texttt{false}\}^3 - {(\texttt{true}, \texttt{false}, \texttt{false})} \\
+        & B_3 = \{\texttt{true}, \texttt{false}\}^3 - {(\texttt{true}, \texttt{true}, \texttt{false})} \\
+        & B_4 = \{\texttt{true}, \texttt{false}\}^3 - {(\texttt{true}, \texttt{true}, \texttt{true})} \\
+    \end{align*}
+\end{enumerate}

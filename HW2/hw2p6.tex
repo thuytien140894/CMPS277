@@ -1,0 +1,27 @@
+Given a Boolean conjunctive query $q$
+\begin{equation*}
+  q :- q_1,q_2,...,q_n.
+\end{equation*}
+\begin{enumerate}
+  \item If both $q_1$ and $q_2$ are minimal equivalent conjunctive queries of $q$, then the 
+  canonical database of $q_1$ is isomorphic to the canonical database of $q_2$. \\ \\
+  \textbf{Proof:} Let $q_1$ and $q_2$ be the two minimal equivalent conjunctive queries to $q$. 
+  It follows that $q_1 \equiv q_2$. Hence, we have $q_1 \subseteq q_2$ and $q_2 \subseteq q_1$. 
+  By the Homomorphism Theorem, there is a homomorphism $h_1$: $I^{q_1} \rightarrow I^{q_2}$, 
+  and there is also a homomorphism $h_2$: $I^{q_2} \rightarrow I^{q_1}$. We have 
+  \begin{equation*}
+    h_1 \circ h_2 = I^{q_2} \rightarrow I^{q_2} = id_{I^{q_2}} 
+  \end{equation*}
+  Hence, $h_2$ is the inverse of $h_1$, and $h_1$ is bijective. Since there exists an 
+  isomorphism $h_1$: $I^{q_1} \rightarrow I^{q_2}$, $q_1$ and $q_2$ are isomorphic.
+
+  \item There is a Boolean conjunctive query $q'$ that is a minimal equivalent query to $q$ 
+  and is obtained from $q$ by removing zero or more conjuncts of $q$. \\ \\
+  \textbf{Proof:} Any conjunctive query has an equivalent query of the same 
+  number of atoms by renaming its variables. Therefore, the size of a minimal equivalent 
+  conjunctive query should be at most the size of $q$. We can obtain a minimal 
+  equivalent conjunctive query in a greedy way. We iterate through all atoms of $q$ and 
+  see if we can obtain another equivalent query by removing one atom. If another 
+  equivalent query is found, we repeat the same process for the remainting atoms. 
+  Otherwise, we have found the minimal one.   
+\end{enumerate}

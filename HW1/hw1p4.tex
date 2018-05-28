@@ -1,0 +1,40 @@
+\begin{enumerate} 
+  \item $\pi_{1,2}(R) \cup \pi_{1,2}(S) = \pi_{1,2}(R \cup S)$
+  \begin{enumerate}
+    \item ($\Rightarrow$) Let $x \in \pi_{1,2}(R) \cup \pi_{1,2}(S)$, we need to show that $x \in \pi_{1,2}(R \cup S)$. 
+    Suppose $(a,b) \in \pi_{1,2}(R) \cup \pi_{1,2}(S)$, then $(a,b) \in \pi_{1,2}(R)$ or $(a,b) \in \pi_{1,2}(S)$. Without 
+    loss of generality, let's assume that $R$ and $S$ are ternary relations. So $\exists c \: (a,b,c) \in R$ or $(a,b,c) 
+    \in S$. Then $(a,b,c) \in (R \cup S)$, and it follows that $\pi_{1,2}(a,b,c) \in \pi_{1,2}(R \cup S)$. 
+    Therefore, $(a,b) \in \pi_{1,2}(R \cup S)$.
+
+    \item ($\Leftarrow$) Let $x \in \pi_{1,2}(R \cup S)$, we need to show that $x \in \pi_{1,2}(R) \cup \pi_{1,2}(S)$. 
+    Suppose $(a,b) \in \pi_{1,2}(R \cup S)$. Without loss of generality, let's assume that $R$ and $S$ are ternary relations. 
+    Then, $R \cup S$ is also a ternary relation, and $\exists c \: (a,b,c) \in (R \cup S)$. It follows that $(a,b,c) \in R$ or 
+    $(a,b,c) \in S$. So $(a,b) \in \pi_{1,2}(R)$ or $(a,b) \in \pi_{1,2}(S)$ by the projection definition of $\pi_{1,2}(a,b,c) 
+    = (a,b)$. This proves that $(a,b) \in \pi_{1,2}(R) \cup \pi_{1,2}(S)$.
+  \end{enumerate}
+
+  \item $\pi_{1,2}(R) \cap \pi_{1,2}(S) \neq \pi_{1,2}(R \cap S)$ \\
+  \textbf{Counter-example}: Suppose $R = \{(a,b,c),(m,n,h)\}$ and $S = \{(a,b,l),(m,n,h)\}$. Both relations have the same arity 
+  of three. We have:
+  \begin{equation*}
+    \pi_{1,2}(R) \cap \pi_{1,2}(S) = \{(a,b),(m,n)\} \cap \{(a,b),(m,n)\} = \{(a,b),(m,n)\}
+  \end{equation*}
+  whereas 
+  \begin{equation*}
+    \pi_{1,2}(R \cap S) = \pi_{1,2}\{(m,n,h)\} = \{(m,n)\}
+  \end{equation*}
+  The two sides are not equal.
+
+  \item $\pi_{1,2}(R) - \pi_{1,2}(S) \neq \pi_{1,2}(R - S)$ \\
+  \textbf{Counter-example}: Suppose $R = \{(a,b,c),(m,n,h)\}$ and $S = \{(a,b,l),(m,n,h)\}$. Both relations have the same arity 
+  of three. We have:
+  \begin{equation*}
+    \pi_{1,2}(R) - \pi_{1,2}(S) = \{(a,b),(m,n)\} - \{(a,b),(m,n)\} = \{\}
+  \end{equation*}
+  whereas 
+  \begin{equation*}
+    \pi_{1,2}(R - S) = \pi_{1,2}\{(a,b,c)\} = \{(a,b)\}
+  \end{equation*}
+  The two sides are not equal.
+\end{enumerate}

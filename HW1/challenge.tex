@@ -1,0 +1,43 @@
+\textbf{Claim}: Union operation cannot be expressed in terms of union, cartesian product, projection, and selection. \\
+  \textbf{Observation}: By definition of union, the two arguments must have the same arity but need not have the same attributes. 
+  When taking a union $R \cup S$, where $R$ and $S$ have the same arity of $k$, there are $2k$ attributes to consider. The only 
+  way for $R \cup S$ to result in a new $k$-ary relation is to combine two attributes, which might be different, into one. 
+  We need to show that the output of every relational algebra expression in the other four operations does not combine two separate 
+  attributes into one. \\ 
+  \textbf{Proof}: We perform a structural induction proof over the context-free grammar for relational algebra expressions:
+  \begin{equation*}
+    E := R, S | (E_1 - E_2) | (E_1 \times E_2) | \pi_{X}(E) | \sigma_{\theta}(E)
+  \end{equation*}
+  where $R, S$ are $k$-ary relations whose attributes are different, $X$ is a list of attributes, and $\theta$ is a condition. 
+  By induction on the length of $E$, we assume that any expression $E'$ smaller than $E$ results in a new relation whose 
+  values are associated with the same original attributes of the inputs. There are six cases to consider: 
+  \begin{itemize}
+    \item \textbf{Case 1 (Relation)}: $E = R$. It is trivial that all the attributes of $E$ contain the original values.
+    \item \textbf{Case 1 (Relation)}: $E = S$. It is trivial that all the attributes of $E$ contain the original values.
+    \item \textbf{Case 3 (Difference)}: $E = E_1 - E_2$ \\
+    By the induction hypothesis, all the values in $E_1$ and $E_2$ are associated with the same original attributes of the 
+    inputs. It follows that $E_1 - E_2$ only removes tuples in $E_1$ that are also in $E_2$. Hence, no two attributes are 
+    combined, and all the values in $E$ remain the same attributes that they were in before the operation. 
+     
+    \item \textbf{Case 4 (Cartesian product)}: $E = E_1 \times E_2$ \\
+    By the induction hypothesis, all the values in $E_1$ and $E_2$ are associated with the same original attributes of the 
+    inputs. By the definition of cartesian product, we have:
+    \begin{equation*}
+      E_1 \times E_2 = \{(a_1,...,a_m,b_1,...,b_n) : (a_1,...,a_m) \in E_1 \land (b_1,...,b_n) \in E_2\}
+    \end{equation*}
+    where $m$ is the arity of $E_1$ and $n$ is the arity of $E_2$. It follows that $E_1 \times E_2$ results in a $(m+n)$-ary 
+    relation, and no two attributes are merged. Hence, all the values in $E$ remain the same attributes that they were in 
+    before the operation. 
+
+    \item \textbf{Case 5 (Projection)}: $E = \pi_{i_1,...,i_m}(E_1)$ \\
+    By the induction hypothesis, all the values in $E_1$ are associated with the same original attributes of the inputs. It 
+    follows $\pi_{i_1,...,i_m}(E_1)$ only removes the attributes in $E_1$ which are not listed in the set $\{i_1,...,i_m\}$. 
+    No two attributes are combined, and hence, all the values in $E$ remain in the same attributes that they were in before 
+    the operation.
+
+    \item \textbf{Case 6 (Selection)}: $E = \sigma_{\theta}(E_1)$ \\
+    By the induction hypothesis, all the values in $E_1$ are associated with the same original attributes of the inputs. It 
+    follows that $\sigma_{\theta}(E_1)$ only removes tuples that do not satisfy $\theta$. No two attributes are 
+    combined, and hence, all the values in $E$ remain in the same attributes that they were in before the 
+    operation. 
+  \end{itemize}  

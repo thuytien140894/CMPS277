@@ -1,0 +1,116 @@
+\begin{enumerate}
+  \item \textbf{Claim}: Difference operation cannot be expressed in terms of union, cartesian product, projection, and selection. \\
+  \textbf{Observation}: Difference operation is the only one whose output size can decrease if its input size increases. For instance, 
+  if we take the difference $R - S$, where $R$ and $S$ have the same arity, and increase the size of $S$ by some $x$ number of tuples, 
+  there are two cases:
+  \begin{enumerate}
+    \item $x$ does not add to $|R \cap S|$, then $|R - S|$ remains the same.
+    \item $x$ adds to $|R \cap S|$, then $|R - S| = |R| - |R \cap S|$ decreases.
+  \end{enumerate}
+  We need to show that the output of every relational algebra expression in the other four operations does not decrease if its input 
+  size increases. \\ 
+  \textbf{Proof}: We perform a structural induction proof over the context-free grammar for relational algebra expressions:
+  \begin{equation*}
+    E := R, S | (E_1 \cup E_2) | (E_1 \times E_2) | \pi_{X}(E) | \sigma_{\theta}(E)
+  \end{equation*}
+  where $R, S$ are $k$-ary relations, $X$ is a list of attributes, and $\theta$ is a condition. By induction on the length of $E$, 
+  we assume that any expression $E'$ smaller than $E$ does not decrease its output size if its input size increases. There are 
+  six cases to consider: 
+  \begin{itemize}
+    \item \textbf{Case 1 (Relation)}: $E = R$. It is trivial that $|E|$ increases if $|R|$ increases.
+    \item \textbf{Case 2 (Relation)}: $E = S$. It is trivial that $|E|$ increases if $|S|$ increases.
+    \item \textbf{Case 3 (Union)}: $E = E_1 \cup E_2$ \\
+    If we increase the input size of $E$, then by the induction hypothesis, $|E_1|$ and $|E_2|$ either stay the same or increase. Since 
+    $|E_1 \cup E_2| = |E_1| + |E_2| - |E_1 \cap E_2|$. There are four cases to consider:
+    \begin{enumerate} 
+      \item $|E_1|$ and $|E_2|$ stay the same, then $|E_1 \cap E_2|$ stays the same and $|E_1 \cup E_2|$ does not change.
+      \item $|E_1|$ increases by some $x > 0$. Then there are three possible consequences:
+      \begin{enumerate}
+        \item $|E_1 \cap E_2|$ remains the same. Then $|E_1| + x + |E_2| - |E_1 \cap E_2| > |E_1| + |E_2| - |E_1 \cap E_2|$, and 
+        $|E_1 \cup E_2|$ increases by $x > 0$.
+        \item $|E_1 \cap E_2|$ increases by $x$. Then $|E_1| + x + |E_2| - (|E_1 \cap E_2| + x) = |E_1| + |E_2| - |E_1 \cap E_2|$. 
+        Therefore, $|E_1 \cup E_2|$ stays the same.
+        \item $|E_1 \cap E_2|$ increases by some positive $m < x$. Then $|E_1| + x + |E_2| - (|E_1 \cap E_2| + m) = |E_1| + |E_2| -  
+        |E_1 \cap E_2| + (x - m) > |E_1| + |E_2| - |E_1 \cap E_2|$. Then $|E_1 \cup E_2|$ increases by $(x - m)$.
+      \end{enumerate}
+      \item $|E_2|$ increases (same argument as (b)).
+      \item $|E_1|$ increases by $x > 0$ and $|E_2|$ increases by $y > 0$. Again, we have three possible consequences:
+      \begin{enumerate}
+        \item $|E_1 \cap E_2|$ remains the same. Then $|E_1| + x + |E_2| + y - |E_1 \cap E_2| > |E_1| + |E_2| - |E_1 \cap E_2|$, and 
+        $|E_1 \cup E_2|$ increases by $(x + y)$.
+        \item $|E_1 \cap E_2|$ increases by $(x + y)$. Then $|E_1| + x + |E_2| + y - (|E_1 \cap E_2| + x + y) = |E_1| + |E_2| - 
+        |E_1 \cap E_2|$. Therefore $|E_1 \cup E_2|$ stays the same.
+        \item $|E_1 \cap E_2|$ increases by some positive $m < (x + y)$. Then $|E_1| + x + |E_2| + y - (|E_1 \cap E_2| + m) = |E_1|  
+        + |E_2| - |E_1 \cap E_2| + (x + y - m) > |E_1| + |E_2| - |E_1 \cup E_2|$. Then $|E_1 \cup E_2|$ increases by $(x + y - m)$.
+      \end{enumerate}
+    \end{enumerate}
+    In all cases, $|E|$ either stays the same or increases when its inputs increase.
+
+    \item \textbf{Case 4 (Cartesian product)}: $E = E_1 \times E_2$ \\
+    If we increase the input size of $E$, then by the induction hypothesis, $|E_1|$ and $|E_2|$ either stay the same or increases. Since 
+    $|E_1 \times E_2| = |E_1| \times |E_2|$, $|E|$ either stays the same if both $|E_1|$ and $|E_2|$ do not change or increases if either 
+    or both $|E_1|$ and $|E_2|$ increase.
+
+    \item \textbf{Case 5 (Projection)}: $E = \pi_{i_1,...,i_m}(E_1)$ \\
+    If we increase the input size of $E$, then by the induction hypothesis, $|E_1|$ either stays the same or increase. There are four 
+    cases to consider:
+    \begin{enumerate}
+      \item $|E_1|$ either stays the same, then $|\pi_{i_1,...,i_m}(E_1)|$ stays the same.  
+      \item $|E_1|$ increases with non-duplicate values in the projected attributes, then \\ $|\pi_{i_1,...,i_m}(E_1)|$ increases.
+      \item $|E_1|$ increases with some duplicate values in the projected attributes, then \\ $|\pi_{i_1,...,i_m}(E_1)|$ still increases.
+      \item $|E_1|$ increases with all duplicate values in the projected attributes, then \\ $|\pi_{i_1,...,i_m}(E_1)|$ does not change.
+    \end{enumerate} 
+    In all cases, $|E|$ either stays the same or increases when its inputs increase. 
+
+    \item \textbf{Case 6 (Selection)}: $E = \sigma_{\theta}(E_1)$ \\
+    If we increase the input size of $E$, then by the induction hypothesis, $|E_1|$ either stays the same or increases. If $|E_1|$ remains 
+    the same, then $|\sigma_{\theta}(E_1)|$ does not change. On the other hand, if $|E_1|$ increases, then there are more candidates for 
+    the tested condition $\theta$. It follows that $|E|$ either remains the same if all the new tuples fail the 
+    condition $\theta$ or increases if some new tuples satisfy the condition. 
+  \end{itemize}  
+
+  \item \textbf{Claim}: If relational algebra expressions are built using union, intersection, cartesian product, 
+  projection, and selection, then this version of relational algebra is not relationally complete. \\
+  \textbf{Justification}: Let's call this new algebra $A$. By the definition of relational completeness, every expression $E$ in 
+  relational algebra should have an equivalent in $A$. In other words, the objective is to find the equivalence of the five basic 
+  operations (difference, union, cartesian product, projection, selection) in $A$. We want to represent the difference operation 
+  in $A$. We showed in (1) that the difference operation cannot be expressed in terms of union, cartesant product, projection, and 
+  selection. We only need to show that the intersection operation cannot express difference either. As we have argued in (1), one unique 
+  property of difference is that its output size might decrease if its input size increases. By induction on the 
+  length of $E$, we assume that any expression $E'$ smaller than $E$ does not decrease its output size if its input size increases. 
+  We need to show that all the expressions $E = E_1 \cap E_2$ do not decrease their output size if their input size increases. 
+  By the induction hypothesis, $|E_1|$ and $|E_2|$ either stay the same or increase if we increase the input size of $E$. There are four 
+  cases to consider: 
+  \begin{enumerate}
+    \item $|E_1|$ and $|E_2|$ stay the same, then $|E_1 \cap E_2|$ stays the same.
+    \item $|E_1|$ increases by some $x > 0$: 
+    \begin{enumerate}
+      \item Some of $x$ tuples are common tuples between $E_1$ and $E_2$, then $|E_1 \cap E_2|$ increases. 
+      \item None of $x$ tuples are common tuples between $E_1$ and $E_2$, then $|E_1 \cap E_2|$ stays the same.
+    \end{enumerate}
+    \item $|E_2|$ increases (same argument as (b)).
+    \item $|E_1|$ increases by $x > 0$ and $|E_2|$ increases by $y > 0$:
+    \begin{enumerate}
+      \item Some of $(x + y)$ tuples are common tuples between $E_1$ and $E_2$, then $|E_1 \cap E_2|$ increases. 
+      \item None of $(x + y)$ tuples are common tuples between $E_1$ and $E_2$, then $|E_1 \cap E_2|$ stays the same.
+    \end{enumerate}
+  \end{enumerate}
+  Hence, in no way does the intersection operation decrease its output size when its inputs increase their size. 
+  In other words, intersection cannot express the difference operation. Since there does not exist any operation in $A$ that 
+  could express the difference operation, this new version of algebra is not relationally complete. 
+
+  \item \textbf{Claim}: Quotient operation cannot be expressed in terms of union, cartesian product, projection, and selection 
+  alone. \\
+  \textbf{Proof}: Without loss of generality, let's consider the quotient operation $R \div S$ on a $5$-ary relation $R$ and a binary 
+  relation $S$. By the definition of quotient, $R \div S$ only includes $(a_1,a_2,a_3) \in \pi_{1,2,3}(R)$ if $\forall (b_1,b_2) \in S$, 
+  $(a_1,a_2,a_3,b_1,b_2) \in R$. In other words, we need to find all the tuples $(a_1,a_2,a_3)$ in $R$ that are paired up with 
+  every tuple in $S$. Suppose $|S| = m$, and there are $n$ tuples in $R$ that satisfy the condition for $R \div S$. Let's consider a new 
+  $S^*$ by adding a new tuple $(b_1^*,b_2^*)$ to $S$. It follows that we only need to consider among the $n$ tuples to see which ones are also 
+  matched up with $(b_1^*,b_2^*)$. We do not have to consider the other tuples in $R$ because they already failed to get matched up with 
+  the original $m$ tuples in $S$. In other words, $R - S^*$ can only output at most $n$ tuples resulted from $R - S$. Certainly, there 
+  might be tuples $(a_1,a_2,a_3)$ among these $n$ candidates where $(a_1,a_2,a_3,b_1^*,b_2^*) \notin R$ and so are not included 
+  in $R - S^*$. Hence, $|R - S^*| \leq n = |R - S|$. In conclusion, the output of the quotient operation may decrease if its input size 
+  increases. We have showed in (1) that the output of every relational algebra expression using union, cartesian product, projection, 
+  and selection does not decrease if its input size increases. Therefore, none of these operations and their composition can express 
+  the quotient operation.
+\end{enumerate}

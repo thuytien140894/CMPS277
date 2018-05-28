@@ -1,0 +1,62 @@
+Let $q$ be a union $q_1 \cup ... \cup q_m$ of conjunctive queries $q_1,...,q_m$. This 
+union is non-redundant if there is no pair $(i,j)$ such that $i \neq j$ and $q_i 
+\subseteq q_j$,
+\begin{enumerate}
+  \item The union
+  \begin{equation*}
+    E(x,y) \lor \exists z \: (E(x,z) \land E(z,y)) \lor \exists z,w \: 
+    (E(x,z) \land E(z,w) \land E(w,y))
+  \end{equation*} 
+  is redundant. \\ \\
+  \textbf{Proof:} Let's consider the two conjunctive queries in the union 
+  \begin{align*}
+    & q_1 = E(x,y) \\
+    & q_2 = \exists z \: (E(x,z) \land E(z,y))
+  \end{align*}
+  There is a homomorphism $h$: $I^{q_1} \rightarrow I^{q_2}$ where 
+  \begin{shiftedflalign*}
+    & h(x) = z & \\
+    & h(y) = y & 
+  \end{shiftedflalign*} 
+  By the Homomorphism Theorem, $q_2 \subseteq q_1$. This violates the definition 
+  of a non-redundant union.
+
+  \item Assume that $q$ is a non-redundant union $q_1 \cup ... \cup q_m$ of Boolean 
+  conjunctive queries $q_1,...,q_m$ and that $q'$ is a non-redundant union 
+  $q'_1 \cup ... \cup q'_n$ of Boolean conjunctive queries $q'_1,...,q'_n$ such that 
+  $q$ is equivalent to $q'$.
+  \begin{enumerate}
+    \item For each $i \leq m$, there is $j \leq n$ such that $q_i \equiv q'_j$. \\ \\
+    \textbf{Proof:} Since $q \equiv q'$, we have $q_1 \cup ... \cup q_m \equiv 
+    q'_1 \cup ... \cup q'_n$. It follows that $q_1 \cup ... \cup q_m \subseteq 
+    q'_1 \cup ... \cup q'_n$ and $q'_1 \cup ... \cup q'_n \subseteq 
+    q_1 \cup ... \cup q_m$. By the theorem of Sagiv and Yannakakis for unions of 
+    conjunctive queries, for each $i \leq m$, there is $j \leq n$ such that $q_i \subseteq q'_j$. 
+    Also, for each $j \leq n$, there is $i \leq m$ such that $q'_j \subseteq q_i$. It follows that 
+    for each $i \leq m$, there is $j \leq n$ such that $q_i \subseteq q'_j$, where $q'_j \subseteq q_k$ 
+    for some $k \leq m$. Towards contradiction, let's assume that $i \neq k$. Then we have 
+    $q_i \subseteq q'_j \subseteq q_k$, or $q_i \subseteq q_k$. This violates the fact that $q$ is a 
+    non-redundant union. Therefore, $i$ must be equal to $k$. Hence, $q_i \subseteq q'_j$, where $q'_j 
+    \subseteq q_i$. This establishes that for each $i \leq m$, there is $j \leq n$ such that $q_i \equiv q'_j$. 
+
+    \item $m = n$ \\ \\ 
+    \textbf{Proof:} We have showed that for each $i \leq m$, there is $j \leq n$ such that $q_i \equiv q'_j$. 
+    Towards contradiction, let's assume that there is a $j \leq n$ such that $q_a \equiv q'_j$ and $q_b \equiv 
+    q'_j$ for some $a, b \leq m$ and $a \neq b$. Then $q_a \equiv q_b$, and $q_a \subseteq q_b$. This violates 
+    the fact that $q$ is a non-redundant union. Hence, no two conjunctive queries in $q$ are equivalent to the 
+    same conjunctive query in $q'$. It follows that there is a one-to-one equivalence mapping between conjunctive 
+    queries in $q$ and $q'$. Hence, $q$ and $q'$ have the same number of conjunctive queries, and $m = n$.
+
+    \item 
+    \begin{enumerate}
+      \item For the first fact, from the theorem of Sagiv and Yannakakis, we know that for each $j \leq n$, there is 
+    $i \leq m$ such that $q_i \subseteq q'_j$, where $q'_j \subseteq q_k$ for some $k \leq m$. Our goal is to 
+    show that $i = k$ to be able to prove $q_i \equiv q'_j$. However, without the assumption that $q$ is a 
+    non-redundant union, $q_i$ could be a subset of $q_k$ where $i \neq k$. Hence, we cannot establish that 
+    $q'_j \subseteq q_i$. 
+      \item For the second fact, without the assumption that $q$ is a non-redundant union, two conjunctive queries of 
+    $q$ could be equivalent to the same conjunctive query in $q'$. Thus $q'$ can have fewer conjunctive queries 
+    and still guarantees for each $i \leq m$, there is $j \leq n$ such that $q_i \equiv q'_j$. 
+    \end{enumerate}
+  \end{enumerate}
+\end{enumerate}

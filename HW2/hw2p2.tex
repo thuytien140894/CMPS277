@@ -1,0 +1,14 @@
+Let $R$ be a relational schema with attributes $A$, $B$, and $C$
+\begin{equation*}
+  \pi_{A}(\pi_{A,C}(R) \bowtie  \pi_{B,C}(R))
+\end{equation*}
+\begin{enumerate}
+  \item Conjunctive query as a relational calculus:
+  \begin{equation*}
+    \{x : \exists y \exists z \: (R(x,y) \land R(z,y))\}
+  \end{equation*}
+  \item Conjunctive query as rule:
+  \begin{equation*}
+    q(x) :- R(x,y),R(z,y)
+  \end{equation*}
+\end{enumerate}

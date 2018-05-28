@@ -1,0 +1,15 @@
+Semijoin $R \leftsemijoin S$ of two ternary relations $R$ and $S$
+
+\begin{enumerate} 
+  \item Relational algebra
+  \begin{equation*}
+    \pi_{R.A,R.B,R.C}(\sigma_{R.B=S.B \land R.C=S.C}(R \times S))
+  \end{equation*}
+
+  \item SQL
+  \begin{verbatim}
+    SELECT R.A, R.B, R.C 
+    FROM R, S
+    WHERE R.B = S.B AND R.C = S.C
+  \end{verbatim}
+\end{enumerate}

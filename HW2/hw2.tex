@@ -1,0 +1,46 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath}
+\usepackage[hyphens]{url}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+
+\makeatletter
+\newenvironment{shiftedflalign}{
+  \start@align\tw@\st@rredfalse\m@ne
+  \hskip\parindent
+}{
+  \endalign
+}
+\newenvironment{shiftedflalign*}{
+  \start@align\tw@\st@rredtrue\m@ne
+  \hskip\parindent
+}{
+  \endalign
+}
+\makeatother
+
+\newcommand{\leftsemijoin}{\mbox{$\mathrel{\raise1pt\hbox{\vrule height5pt
+depth0pt width0.6pt\hskip-1.5pt$>$\hskip -2.5pt$<$}}$}}
+
+\begin{document}
+
+\title{Homework 2}
+\author{Tien Thuy Ho}
+\maketitle
+
+\subsection*{Problem 1} \input{hw2p1}
+\subsection*{Problem 2} \input{hw2p2}
+\subsection*{Problem 3} 
+\underline{Acknowledgment}: http://www.cs.rhul.ac.uk/home/green/mathscsp/slides/tutorials/kolaitis/csp-oxford.pdf \\ \\
+\input{hw2p3}
+\subsection*{Problem 4} \input{hw2p4}
+\subsection*{Problem 5} \input{hw2p5}
+\subsection*{Problem 6} \input{hw2p6}
+\subsection*{Problem 7} \input{hw2p7}
+
+\end{document}

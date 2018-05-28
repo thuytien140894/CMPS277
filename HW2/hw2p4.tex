@@ -1,0 +1,60 @@
+NATURAL JOIN NON-EMPTINESS: Given relations $R_1,...,R_m$, is their natural join 
+$R_1 \bowtie ... \bowtie R_m$ non-empty?
+\begin{enumerate} 
+  \item NATURAL JOIN NON-EMPTINESS is in NP. \\ \\
+  \textbf{Proof:} We can guess a tuple $(a_1,...,a_k)$, where $k$ is the number of 
+  all attributes, and check the membership of 
+  each value in the given relations. For each value $a_i$ of attribute $B$, we iterate through 
+  all the relations. If we encounter a relation $R_j$ that has the same attribute as $a_i$, 
+  then we check if $a_i \in \pi _B(R_j)$. We check $a_i$ against all the relations 
+  that contain attribute $B$. The tuple $(a_1,...,a_k) \in R_1 \bowtie ... \bowtie 
+  R_m$ if the membership test for each value in the tuple is positive. It then follows that 
+  $R_1 \bowtie ... \bowtie R_m$ is non-empty. This checking method should run in polynomial 
+  time $O(km)$, where $k$ is the size of the tuple and $m$ is the number of relations. 
+  
+  \item NATURAL JOIN NON-EMPTINESS is an NP-hard problem. \\ \\
+  \textbf{Proof:} We need to show that NATURAL JOIN NON-EMPTINESS can be reduced to 
+  one of the NP-complete problem in polynomial time. Let's use Integer Linear 
+  Inequalities (ILE) as the NP-complete problem for reduction. We need to show that 
+  ILE $\preceq _{p}$ NATURAL JOIN NON-EMPTINESS. Let $\varphi$ be a system of $m$ linear 
+  inequalities $l_1,...,l_m$ where in each inequality $l_i$ for $1 \leq i \leq m$, there 
+  are an arbitrary number $k$ of variables $x_{i_j}$ for $1 \leq j \leq k$. We can transform 
+  each inequality $l_i$ to a corresponding relation $R_i$ with the arity equal to 
+  the number of variables in $l_i$. Each tuple in $R_i$ is a solution to the inequality. 
+  For example, if $l_i$ is $x_1 + x_2 > 0$, then we have the corresponding $R_i$ with two attributes 
+  $x_1$ and $x_2$ and all tuples $(x_1,x_2)$ that satisfy this inequality. Let $\varphi ^*$ be 
+  the resulting natural join of $m$ relations. It follows that $\varphi ^*$ is 
+  a set of tuples that satisfy all the inequalities.
+  \begin{equation*}
+    \varphi \text{ has a solution} \Longleftrightarrow \varphi ^* \text{ is non-empty}
+  \end{equation*}
+  Hence, ILE $\preceq _{p}$ NATURAL JOIN NON-EMPTINESS.
+
+  \item NATURAL JOIN NON-EMPTINESS is NP-hard even if the given relations 
+  are of arity at most 3. \\ \\
+  \textbf{Proof:} Since we have showed that the general NATURAL JOIN NON-EMPTINESS is a 
+  NP-hard problem, we need to show that NATURAL JOIN NON-EMPTINESS $\preceq _{p}$ 3-NATURAL 
+  JOIN NON-EMPTINESS. Let $\varphi$ be the natural join $R_1 \bowtie ... \bowtie 
+  R_m$ of relations $R_1,...,R_m$. If a relation has an arity of more than 3, we can break it up 
+  into multiple relations of arity of 3. For instance, given a relation $R_i(A,B,C,D,E)$ where 
+  $A,B,C,D$ and $E$ are the attributes, we replace it with $R_{i_1}(A,B,C)$ and $R_{i_2}(C,D,E)$ 
+  such that the two relations share the same attribute and all its values. In that way, the natural 
+  join $R_{i_1} \bowtie R_{i_2}$ gives back $R_i(A,B,C,D,E)$. Let $\varphi ^*$ be the resulting 
+  natural join of relations of arity at most 3, then 
+  \begin{equation*}
+    \varphi \text{ is non-empty} \Longleftrightarrow \varphi ^* \text{ is non-empty}
+  \end{equation*} 
+  Hence, NATURAL JOIN NON-EMPTINESS $\preceq _{p}$ 3-NATURAL JOIN NON-EMPTINESS.
+
+  \item Let's consider the problem of NATURAL JOIN NON-EMPTINESS in which we are given at 
+  most $M$ relations and each relation has arity at most $K$. The naive algorithm of 
+  computing the natural join of relations is to compare every tuple of every relation against 
+  one another and check if they agree on common attributes. Let $I$ be a database instance 
+  from which relations $R_1,...,R_M$ are derived. Then the number of possible tuples 
+  for each relation of arity at most $K$ is $|adom(I)|^K$. Since we take the natural join 
+  of at most $M$ relations, the total number of tuple comparisons is $(|adom(I)|^K)^M$, or 
+  $|adom(I)|^{KM}$. Hence, even in the worst case of exhausting all the possible tuples 
+  that each relation can have, we can compute the natural join of at most $M$ relations, each with 
+  arity at most $K$, in polynomial time with respect to the size of the active domain 
+  of a database.
+\end{enumerate}

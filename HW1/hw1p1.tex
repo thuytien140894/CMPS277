@@ -1,0 +1,44 @@
+\begin{enumerate}
+  \item Symmetric part $R^*$, where $R$ is a binary relation:
+  \begin{enumerate}
+    \item Relational calculus
+    \begin{equation*}
+      \{(a,b) : R(a,b) \wedge R(b,a)\}
+    \end{equation*}
+
+    \item Relational algebra
+    \begin{equation*}
+      \pi_{1,2}(\sigma_{1 = 4 \land 2 = 3}(R \times R))
+    \end{equation*}
+    or
+    \begin{equation*}
+      R \cap \pi_{2,1}(R)
+    \end{equation*}
+  \end{enumerate}
+
+  \item Symmetric difference $R \Delta S$, where $R$ and $S$ are two ternary relations:
+  \begin{enumerate}
+    \item Relational calculus
+    \begin{equation*}
+      \{(x,y,z) : (R(x,y,z) \land \neg S(x,y,z)) \lor (S(x,y,z) \land \neg R(x,y,z))\}
+    \end{equation*}
+
+    \item Relational algebra
+    \begin{equation*}
+      (R \cup S) - (R \cap S)
+    \end{equation*}
+  \end{enumerate}
+
+  \item Composition $R_1 \circ R_2$ where $R_1$ and $R_2$ are two binary relations:
+  \begin{enumerate}
+    \item Relational calculus
+    \begin{equation*}
+      \{(a,c) : \exists b \: (R_1(a,b) \land R_2(b,c))\}
+    \end{equation*}
+
+    \item Relational algebra
+    \begin{equation*}
+      \pi_{R_1.1,R_2.2}(\sigma_{R_1.2 = R_2.1}(R_1 \times R_2))
+    \end{equation*}
+  \end{enumerate}
+\end{enumerate}
